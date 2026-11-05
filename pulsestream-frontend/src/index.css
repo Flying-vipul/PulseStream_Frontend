@@ -1,0 +1,309 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Hide scrollbar utility ──────────────────────────────────────────────── */
+@layer utilities {
+  .hide-scrollbar::-webkit-scrollbar { display: none; }
+  .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+  /* Premium thin scrollbar for modals */
+  .thin-scrollbar::-webkit-scrollbar { width: 4px; }
+  .thin-scrollbar::-webkit-scrollbar-track { background: transparent; }
+  .thin-scrollbar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 999px; }
+  .thin-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.3); }
+
+  /* Text gradient */
+  .text-gradient {
+    background: linear-gradient(135deg, #fff 0%, #e50914 60%, #ff6b35 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Glow effects */
+  .glow-red    { box-shadow: 0 0 30px rgba(229, 9, 20, 0.45); }
+  .glow-red-sm { box-shadow: 0 0 12px rgba(229, 9, 20, 0.35); }
+
+  /* Card 3D hover effect */
+  .card-hover {
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease;
+    transform-style: preserve-3d;
+    perspective: 800px;
+  }
+  .card-hover:hover {
+    transform: scale(1.07) translateY(-4px);
+    box-shadow: 0 24px 48px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.08);
+  }
+
+  /* Glass card */
+  .glass {
+    background: rgba(255,255,255,0.04);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+}
+
+/* ─── Base reset ──────────────────────────────────────────────────────────── */
+html, body, #root {
+  margin: 0; padding: 0;
+  width: 100%; min-height: 100vh;
+  background-color: #0B0B0C;
+  color: white;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Custom selection color ──────────────────────────────────────────────── */
+::selection { background: rgba(229, 9, 20, 0.4); color: white; }
+
+/* ─── Swiper fix ──────────────────────────────────────────────────────────── */
+.swiper-slide { z-index: 1; transition: z-index 0.3s step-end; }
+.swiper-slide:hover { z-index: 100 !important; transition: z-index 0s; }
+
+/* ═══════════════════════════════════════════════════════════════════════════ */
+/* PREMIUM ANIMATIONS                                                         */
+/* ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Hero title entrance */
+@keyframes heroSlideUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-hero-title {
+  animation: heroSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.animate-hero-subtitle {
+  animation: heroSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+}
+.animate-hero-actions {
+  animation: heroSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+}
+.animate-hero-search {
+  animation: heroSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.45s both;
+}
+
+/* Fade in */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.animate-fade-in { animation: fadeIn 0.4s ease forwards; }
+
+/* Fade in up */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in-up { animation: fadeInUp 0.5s ease forwards; }
+
+/* Pulse glow */
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 20px rgba(229, 9, 20, 0.4); }
+  50%       { box-shadow: 0 0 40px rgba(229, 9, 20, 0.7); }
+}
+.animate-pulse-glow { animation: pulseGlow 2.5s ease-in-out infinite; }
+
+/* Shimmer for skeletons */
+@keyframes shimmer {
+  0%   { background-position: -1000px 0; }
+  100% { background-position: 1000px 0; }
+}
+.skeleton {
+  background: linear-gradient(90deg, #1c1c1c 25%, #2a2a2a 50%, #1c1c1c 75%);
+  background-size: 1000px 100%;
+  animation: shimmer 1.8s infinite linear;
+}
+
+/* Floating orb animation */
+@keyframes floatOrb {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(30px, -20px) scale(1.05); }
+  66%       { transform: translate(-20px, 15px) scale(0.97); }
+}
+.animate-float-orb {
+  animation: floatOrb 8s ease-in-out infinite;
+}
+.animate-float-orb-2 {
+  animation: floatOrb 11s ease-in-out infinite reverse;
+}
+.animate-float-orb-3 {
+  animation: floatOrb 14s ease-in-out infinite 3s;
+}
+
+/* Hero crossfade */
+@keyframes heroCrossfade {
+  0%   { opacity: 0; transform: scale(1.04); }
+  8%   { opacity: 1; transform: scale(1.02); }
+  88%  { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(0.98); }
+}
+
+/* Modal slide up */
+@keyframes slideUp {
+  from { transform: translateY(30px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+/* Mobile menu slide in */
+@keyframes slideInRight {
+  from { transform: translateX(100%); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
+}
+
+/* Progress bar animation */
+@keyframes progressBar {
+  from { width: 0%; }
+  to   { width: 100%; }
+}
+
+/* Spin slow */
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+.animate-spin-slow { animation: spinSlow 3s linear infinite; }
+
+/* Bounce subtle */
+@keyframes bounceSub {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-6px); }
+}
+.animate-bounce-sub { animation: bounceSub 2s ease-in-out infinite; }
+
+/* Row card hover lift */
+.row-card {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), 
+              box-shadow 0.3s ease,
+              z-index 0s 0.3s;
+}
+.row-card:hover {
+  transform: scale(1.12) translateY(-6px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.8), 0 0 20px rgba(229,9,20,0.2);
+  z-index: 50;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), 
+              box-shadow 0.3s ease,
+              z-index 0s;
+}
+
+/* Input focus ring */
+input:focus, textarea:focus, select:focus {
+  outline: none;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════ */
+/* 📱 MOBILE RESPONSIVENESS & LANDSCAPE VIDEO ORIENTATION                     */
+/* ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Touch device: larger tap targets ───────────────────────────────────── */
+@media (max-width: 768px) {
+  /* Prevent text size inflation on rotation */
+  html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+
+  /* Bigger tap targets for all icon buttons */
+  button { min-height: 36px; min-width: 36px; }
+
+  /* Hero billboard — stack content vertically on mobile */
+  .hero-content {
+    padding: 1rem 1.25rem !important;
+    width: 100% !important;
+  }
+
+  /* Row cards — slightly smaller on mobile */
+  .row-card {
+    width: 100px !important;
+  }
+  .row-card:hover {
+    transform: scale(1.06) translateY(-3px);
+  }
+
+  /* Modals — fullscreen on mobile */
+  .movie-modal {
+    width: 100% !important;
+    max-width: 100% !important;
+    border-radius: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* Content grid — 2 columns on mobile */
+  .content-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.75rem !important;
+  }
+
+  /* Admin panel sidebar collapses */
+  .admin-sidebar {
+    width: 100% !important;
+    position: relative !important;
+  }
+}
+
+/* ── Small phones ────────────────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .content-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   🎬 VIDEO PLAYER — LANDSCAPE MODE ON MOBILE
+   When a mobile user rotates their phone, or goes fullscreen, we force
+   landscape layout and hide the nav bar to maximize the viewing area.
+══════════════════════════════════════════════════════════════════════════ */
+
+/* 1. The player wrapper itself — always fills the screen */
+.pulse-player-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: #000;
+  overflow: hidden;
+}
+
+/* 2. In landscape on mobile — go truly fullscreen, hide browser chrome hints */
+@media (max-width: 900px) and (orientation: landscape) {
+  .pulse-player-container {
+    height: 100svh; /* svh = small viewport height, excludes browser chrome */
+  }
+
+  /* Hide the "rotate" hint in landscape */
+  .pulse-player-container::after {
+    display: none;
+  }
+
+  /* In landscape, controls should be more compact */
+  .pulse-player-container .control-bar {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    padding-bottom: 0.5rem !important;
+  }
+
+  .pulse-player-container .top-bar {
+    padding: 0.75rem 1rem !important;
+  }
+
+  /* Make volume slider always visible in landscape (no hover needed on touch) */
+  .pulse-player-container input[type="range"].volume-slider {
+    width: 80px !important;
+    opacity: 1 !important;
+  }
+}
+
+/* 4. Custom scrollbar for desktop */
+@media (min-width: 768px) {
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: #111; }
+  ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: #555; }
+}
+
+/* ── Navigation — hamburger on mobile ───────────────────────────────────── */
+.mobile-nav-open {
+  animation: slideInRight 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ── Watch page — hide nav bar completely on mobile portrait ─────────────── */
+@media (max-width: 768px) {
+  .watch-page-nav { display: none !important; }
+}
